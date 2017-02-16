@@ -1,6 +1,6 @@
 # Testing Upside Down
 
-Slides: [Testing_Upside_Down.pdf](Testing_Upside_down.pdf) (0.9 MB)
+Slides: [Testing_Upside_Down.pdf](Testing_Upside_Down.pdf) (0.9 MB)
 
 ### Resources
 
