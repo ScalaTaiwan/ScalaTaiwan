@@ -1,4 +1,4 @@
-# Meetup of ScalaTaiwan
+# Scala Taiwan Meetups
 
 ## 2017
 * [We use Scala in the real world](2017-03-09-We_Use_Scala_In_The_Real_World/) by [pandaforme](https://github.com/pandaforme)
