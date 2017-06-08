@@ -1,7 +1,7 @@
 # Scala Taiwan Meetups
 
 ## 2017
-* [FP: Lift the Fear From Beginner to Novice](2017-06-07-FP_Lift_The_Fear_From_Beginner_to_Novice/FP Lift the Fear From Beginner to Novice.pdf) by [Steven Yang](https://github.com/lunaspeed)
+* [FP: Lift the Fear From Beginner to Novice](2017-06-07-FP_Lift_The_Fear_From_Beginner_to_Novice/) by [Steven Yang](https://github.com/lunaspeed)
 * [From monad transformers to the Eff monad](2017-05-10-From_monad_transformers_to_the_Eff_monads/) by [Walter Chang](https://github.com/weihsiu)
 * [ScalaMatusri 2017 Note](2017-04-12-ScalaMatsuri_2017_Note/) by [vitojeng](https://github.com/vitojeng)
 * [ScalaKitchen](https://speakerdeck.com/pishen/scalakitchen) by [Pishen Tsai](https://github.com/pishen)
