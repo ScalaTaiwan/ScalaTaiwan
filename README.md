@@ -1,6 +1,7 @@
 # Scala Taiwan Meetups
 
 ## 2017
+* [Building blocks for backend @ iHeartRadio](2017-08-29-Building_blocks_for_backend/) by [Victor Chan](https://github.com/joyfulvillage)
 * [Shapeless Introduction](https://speakerdeck.com/pishen/shapeless-introduction) by [Pishen Tsai](https://github.com/pishen)
 * [FP: Lift the Fear From Beginner to Novice](2017-06-07-FP_Lift_The_Fear_From_Beginner_to_Novice/) by [Steven Yang](https://github.com/lunaspeed)
 * [From monad transformers to the Eff monad](2017-05-10-From_monad_transformers_to_the_Eff_monads/) by [Walter Chang](https://github.com/weihsiu)
