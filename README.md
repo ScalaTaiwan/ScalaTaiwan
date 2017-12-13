@@ -1,6 +1,7 @@
 # Scala Taiwan Meetups
 
 ## 2017
+* [Introduction to Apache Kafka](https://www.slideshare.net/ShiaoAnYuan/introduction-to-apache-kafka-84009739) by [Shiao-An Yuan](https://github.com/sayuan)
 * [Intellij IDEA - Intro, Tips and Tricks](https://www.slideshare.net/vitojeng/intellij-idea-intro-tips-and-tricks-82511473) by [vitojeng](https://github.com/vitojeng)
 * [Building blocks for backend @ iHeartRadio](2017-08-29-Building_blocks_for_backend/) by [Victor Chan](https://github.com/joyfulvillage)
 * [Shapeless Introduction](https://speakerdeck.com/pishen/shapeless-introduction) by [Pishen Tsai](https://github.com/pishen)
