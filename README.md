@@ -15,3 +15,4 @@
 
 ## 2016
 * [Liberate Your Monads](2016-12-21-Liberate_Your_Monads/) by [Jiří Jakeš](https://github.com/jirijakes)
+* [Debugging & Tuning in Spark](https://www.slideshare.net/ShiaoAnYuan/debugging-tuning-in-spark) by [Shiao-An Yuan](https://github.com/sayuan)
