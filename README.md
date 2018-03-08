@@ -1,5 +1,8 @@
 # Scala Taiwan Meetups
 
+## 2018
+* [Programming with Algebraic Data Types](2018-03-07-Programming_with_Algebraic_Data_Types/) by [Jiří Jakeš](https://github.com/jirijakes)
+
 ## 2017
 * [Introduction to Apache Kafka](https://www.slideshare.net/ShiaoAnYuan/introduction-to-apache-kafka-84009739) by [Shiao-An Yuan](https://github.com/sayuan)
 * [Intellij IDEA - Intro, Tips and Tricks](https://www.slideshare.net/vitojeng/intellij-idea-intro-tips-and-tricks-82511473) by [vitojeng](https://github.com/vitojeng)
