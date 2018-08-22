@@ -1,0 +1,7 @@
+-Xms512M
+-Xmx8192M
+-XX:MaxMetaspaceSize=1024M
+-Dscala.concurrent.context.minThreads=1
+-Dscala.concurrent.context.numThreads=1
+-Dscala.concurrent.context.maxThreads=5
+-Dscala.concurrent.context.maxExtraThreads=5
