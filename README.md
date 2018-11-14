@@ -1,6 +1,7 @@
 # Scala Taiwan Meetups
 
 ## 2018
+* [Scala in the Wild – How Bubbleye uses Scala](2018-11-13-Scala_in_Bubbleye/) by [Jiří Jakeš](https://github.com/jirijakes)
 * [Scala + Google Dataflow = Serverless Spark](https://speakerdeck.com/pishen/scala-plus-google-dataflow-equals-serverless-spark) by [Pishen Tsai](https://github.com/pishen)
 * [A Brief Intro to Tagless Final](2018-05-15-A_Brief_Intro_to_Tagless_Final/) by [Walter Chang](https://github.com/weihsiu)
 * [Nelson: Functional programming in system design](2018-04-03-Nelson_FP_in_system_design/) by [Adelbert Chang](https://github.com/adelbertc)
