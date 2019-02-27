@@ -1,6 +1,10 @@
 # Scala Taiwan Meetups
 
+## 2019
+* [First Intuition of Category Theory](2019-2-26-First_Intuition_of_Category_Theory/) by [Wilber Chao](https://github.com/cecol)
+
 ## 2018
+* [Typeclasses everywhere - How use typleclasses idea in unit test](2018-12-20-Typeclasses_everywhere/) by [Wilber Chao](https://github.com/cecol)
 * [Scala in the Wild – How Bubbleye uses Scala](2018-11-13-Scala_in_Bubbleye/) by [Jiří Jakeš](https://github.com/jirijakes)
 * [Miserable Future](2018-08-21-Miserable_Future/) by [pandaforme](https://github.com/pandaforme)
 * [Scala + Google Dataflow = Serverless Spark](https://speakerdeck.com/pishen/scala-plus-google-dataflow-equals-serverless-spark) by [Pishen Tsai](https://github.com/pishen)
