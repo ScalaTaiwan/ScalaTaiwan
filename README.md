@@ -1,6 +1,7 @@
 # Scala Taiwan Meetups
 
 ## 2019
+* [Bengal: Dotty Cats](2019-03-28-Bengal_Dotty_Cats/) by [Walter Chang](https://github.com/weihsiu)
 * [First Intuition of Category Theory](2019-2-26-First_Intuition_of_Category_Theory/) by [Wilber Chao](https://github.com/cecol)
 
 ## 2018
