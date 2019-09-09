@@ -1,6 +1,7 @@
 # Scala Taiwan Meetups
 
 ## 2019
+* [Introduction to Minitime](https://speakerdeck.com/pishen/introduction-to-minitime) by [Pishen Tsai](https://github.com/pishen)
 * [ScalaCheck - A Tool for Property-Based Test](2019-07-16-Property-Based_Testing/) by [Sheng-Ying Hsiao](https://github.com/parallelgithub)
 * [Bengal: Dotty Cats](2019-03-28-Bengal_Dotty_Cats/) by [Walter Chang](https://github.com/weihsiu)
 * [First Intuition of Category Theory](2019-02-26-First_Intuition_of_Category_Theory/) by [Wilber Chao](https://github.com/cecol)
