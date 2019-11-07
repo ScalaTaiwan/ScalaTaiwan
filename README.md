@@ -7,13 +7,13 @@
 * [First Intuition of Category Theory](2019-02-26-First_Intuition_of_Category_Theory/) by [Wilber Chao](https://github.com/cecol)
 
 ## 2018
-* [Typeclasses everywhere - How use typleclasses idea in unit test](2018-12-20-Typeclasses_everywhere/) by [Wilber Chao](https://github.com/cecol)
-* [Scala in the Wild – How Bubbleye uses Scala](2018-11-13-Scala_in_Bubbleye/) by [Jiří Jakeš](https://github.com/jirijakes)
-* [Miserable Future](2018-08-21-Miserable_Future/) by [pandaforme](https://github.com/pandaforme)
+* [Typeclasses everywhere - How use typleclasses idea in unit test](2018/2018-12-20-Typeclasses_everywhere/) by [Wilber Chao](https://github.com/cecol)
+* [Scala in the Wild – How Bubbleye uses Scala](2018/2018-11-13-Scala_in_Bubbleye/) by [Jiří Jakeš](https://github.com/jirijakes)
+* [Miserable Future](2018/2018-08-21-Miserable_Future/) by [pandaforme](https://github.com/pandaforme)
 * [Scala + Google Dataflow = Serverless Spark](https://speakerdeck.com/pishen/scala-plus-google-dataflow-equals-serverless-spark) by [Pishen Tsai](https://github.com/pishen)
-* [A Brief Intro to Tagless Final](2018-05-15-A_Brief_Intro_to_Tagless_Final/) by [Walter Chang](https://github.com/weihsiu)
-* [Nelson: Functional programming in system design](2018-04-03-Nelson_FP_in_system_design/) by [Adelbert Chang](https://github.com/adelbertc)
-* [Programming with Algebraic Data Types](2018-03-07-Programming_with_Algebraic_Data_Types/) by [Jiří Jakeš](https://github.com/jirijakes)
+* [A Brief Intro to Tagless Final](2018/2018-05-15-A_Brief_Intro_to_Tagless_Final/) by [Walter Chang](https://github.com/weihsiu)
+* [Nelson: Functional programming in system design](2018/2018-04-03-Nelson_FP_in_system_design/) by [Adelbert Chang](https://github.com/adelbertc)
+* [Programming with Algebraic Data Types](2018/2018-03-07-Programming_with_Algebraic_Data_Types/) by [Jiří Jakeš](https://github.com/jirijakes)
 
 ## 2017
 * [Introduction to Apache Kafka](https://www.slideshare.net/ShiaoAnYuan/introduction-to-apache-kafka-84009739) by [Shiao-An Yuan](https://github.com/sayuan)
