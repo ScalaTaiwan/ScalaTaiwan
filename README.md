@@ -29,6 +29,6 @@
 * [Device Simulator with Akka](2017-01-11-Device_Simulator_with_Akka/) by [maxxhuang](https://github.com/maxxhuang)
 
 ## 2016
-* [Liberate Your Monads](2016-12-21-Liberate_Your_Monads/) by [Jiří Jakeš](https://github.com/jirijakes)
+* [Liberate Your Monads](2016/2016-12-21-Liberate_Your_Monads/) by [Jiří Jakeš](https://github.com/jirijakes)
 * [Debugging & Tuning in Spark](https://www.slideshare.net/ShiaoAnYuan/debugging-tuning-in-spark) by [Shiao-An Yuan](https://github.com/sayuan)
 * [SBT Basic Concepts](https://speakerdeck.com/pishen/sbt-basic-concepts) by [Pishen Tsai](https://github.com/pishen)
