@@ -33,3 +33,4 @@
 * [Liberate Your Monads](2016/2016-12-21-Liberate_Your_Monads/) by [Jiří Jakeš](https://github.com/jirijakes)
 * [Debugging & Tuning in Spark](https://www.slideshare.net/ShiaoAnYuan/debugging-tuning-in-spark) by [Shiao-An Yuan](https://github.com/sayuan)
 * [SBT Basic Concepts](https://speakerdeck.com/pishen/sbt-basic-concepts) by [Pishen Tsai](https://github.com/pishen)
+* [Scala & Spark(1.6) in Performance Aspect](2016/2016-06-14-Scala_&_Spark(1.6)_in_Performance_Aspect) by [Jimin Hsieh](https://github.com/jiminhsieh)
