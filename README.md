@@ -1,6 +1,7 @@
 # Scala Taiwan Meetups
 
 ## 2019
+* [How to contribute to (Scala) open source & my experience](2019/2019-11-05-How_to_contribute_to_(Scala)_open_source_&_my_experience) by [Jimin Hsieh](https://github.com/jiminhsieh)
 * [Introduction to Minitime](https://speakerdeck.com/pishen/introduction-to-minitime) by [Pishen Tsai](https://github.com/pishen)
 * [ScalaCheck - A Tool for Property-Based Test](2019/2019-07-16-Property-Based_Testing/) by [Sheng-Ying Hsiao](https://github.com/parallelgithub)
 * [Bengal: Dotty Cats](2019/2019-03-28-Bengal_Dotty_Cats/) by [Walter Chang](https://github.com/weihsiu)
@@ -32,3 +33,4 @@
 * [Liberate Your Monads](2016/2016-12-21-Liberate_Your_Monads/) by [Jiří Jakeš](https://github.com/jirijakes)
 * [Debugging & Tuning in Spark](https://www.slideshare.net/ShiaoAnYuan/debugging-tuning-in-spark) by [Shiao-An Yuan](https://github.com/sayuan)
 * [SBT Basic Concepts](https://speakerdeck.com/pishen/sbt-basic-concepts) by [Pishen Tsai](https://github.com/pishen)
+* [Scala & Spark(1.6) in Performance Aspect](2016/2016-06-14-Scala_&_Spark(1.6)_in_Performance_Aspect) by [Jimin Hsieh](https://github.com/jiminhsieh)
