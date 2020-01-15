@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="building-a-purely-functional-redis-driver">building a purely functional redis driver</h1>
+<hr>
+<h1 id="me">me</h1>
+<ul>
+<li>interested in fp and types</li>
+<li>
+<img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/225/beer-mug_1f37a.png" alt="" width="30">
+</li>
+</ul>
+<hr>
+<h1 id="why">why</h1>
+<ul>
+<li>have a interest in network programming</li>
+<li>Rob Norris - <em>Pure Functional Database Programming‚ without JDBC</em></li>
+<li>for fun</li>
+</ul>
+<hr>
+<h1 id="agenda">agenda</h1>
+<ul>
+<li>tcp</li>
+<li>codec</li>
+<li>connection management</li>
+</ul>
+<hr>
+<h1 id="cats-effect-primer">cats-effect primer</h1>
+<ul>
+<li>IO[_]</li>
+<li>Sync, Concurrent</li>
+<li>Bracket, Resource</li>
+</ul>
+<p><img src="https://i.imgur.com/YbpOqEd.png" alt=""></p>
+<hr>
+<h1 id="cats-effect-primer-1">cats-effect primer</h1>
+<p><img src="https://typelevel.org/cats-effect/img/cats-effect-typeclasses.svg" alt="cats-effect"></p>
+<hr>
+<h1 id="tcp">tcp</h1>
+<pre class=" language-scala"><code class="prism  language-scala">fs2<span class="token punctuation">.</span>io<span class="token punctuation">.</span>tcp<span class="token punctuation">.</span>Socket<span class="token punctuation">.</span>client<span class="token punctuation">[</span>F<span class="token punctuation">[</span>_<span class="token punctuation">]</span><span class="token operator">:</span> Concurent<span class="token operator">:</span> ContextShift<span class="token punctuation">]</span>
+  <span class="token punctuation">(</span>address<span class="token operator">:</span> InetAddress<span class="token punctuation">)</span><span class="token punctuation">(</span>acg<span class="token operator">:</span> AsynchronousChannelGroup<span class="token punctuation">)</span><span class="token operator">:</span> Resource<span class="token punctuation">[</span>F<span class="token punctuation">,</span> Socket<span class="token punctuation">[</span>F<span class="token punctuation">]</span><span class="token punctuation">]</span>
+</code></pre>
+<hr>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">trait</span> Socket<span class="token punctuation">[</span>F<span class="token punctuation">[</span>_<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> read<span class="token punctuation">(</span>maxBytes<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">,</span> timeout<span class="token operator">:</span> FiniteDuration<span class="token punctuation">)</span><span class="token operator">:</span> F<span class="token punctuation">[</span>Option<span class="token punctuation">[</span>Chunk<span class="token punctuation">[</span><span class="token builtin">Byte</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+  <span class="token keyword">def</span> write<span class="token punctuation">(</span>bytes<span class="token operator">:</span> Chunk<span class="token punctuation">[</span><span class="token builtin">Byte</span><span class="token punctuation">]</span><span class="token punctuation">,</span> timeout<span class="token operator">:</span> FiniteDuration<span class="token punctuation">)</span><span class="token operator">:</span> F<span class="token punctuation">[</span><span class="token builtin">Unit</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">trait</span> BitVectorSocket<span class="token punctuation">[</span>F<span class="token punctuation">[</span>_<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> write<span class="token punctuation">(</span>bits<span class="token operator">:</span> BitVector<span class="token punctuation">)</span><span class="token operator">:</span> F<span class="token punctuation">[</span><span class="token builtin">Unit</span><span class="token punctuation">]</span>
+  <span class="token keyword">def</span> read<span class="token punctuation">(</span>maxBytes<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> F<span class="token punctuation">[</span>BitVector<span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">trait</span> ProtocolSocket<span class="token punctuation">[</span>F<span class="token punctuation">[</span>_<span class="token punctuation">]</span><span class="token punctuation">,</span> A<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> read<span class="token operator">:</span> F<span class="token punctuation">[</span>A<span class="token punctuation">]</span>
+  <span class="token keyword">def</span> write<span class="token punctuation">(</span>a<span class="token operator">:</span> A<span class="token punctuation">)</span><span class="token operator">:</span> F<span class="token punctuation">[</span><span class="token builtin">Unit</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<h1 id="resp-redis-serialization-protocol">RESP <em>REdis Serialization Protocol</em></h1>
+<p>A <em>mostly</em> text protocol</p>
+<ul>
+<li>Simple Strings</li>
+<li>Errors</li>
+<li>Integers</li>
+<li>Bulk Strings</li>
+<li>Arrays</li>
+</ul>
+<hr>
+<pre><code>+OK\r\n
+-Error message\r\n
+:15\r\n
+$6\r\nfoobar\r\n
+$-1\r\n
+</code></pre>
+<hr>
+<pre><code>*5\r\n
+:1\r\n
+:2\r\n
+:3\r\n
+:4\r\n
+$6\r\n
+foobar\r\n
+</code></pre>
+<hr>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">sealed</span> <span class="token keyword">trait</span> RESP
+<span class="token keyword">object</span> RESP <span class="token punctuation">{</span>
+  <span class="token keyword">case</span> <span class="token keyword">class</span> Status<span class="token punctuation">(</span>message<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> RESP
+  <span class="token keyword">case</span> <span class="token keyword">class</span> Error<span class="token punctuation">(</span>message<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> RESP
+  <span class="token keyword">case</span> <span class="token keyword">class</span> Integer<span class="token punctuation">(</span>id<span class="token operator">:</span> <span class="token builtin">Long</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> RESP
+  <span class="token keyword">case</span> <span class="token keyword">class</span> Bulk<span class="token punctuation">(</span>message<span class="token operator">:</span> Option<span class="token punctuation">[</span>ByteVector<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> RESP
+  <span class="token keyword">case</span> <span class="token keyword">class</span> Arr<span class="token punctuation">(</span>message<span class="token operator">:</span> Option<span class="token punctuation">[</span>Vector<span class="token punctuation">[</span>RESP<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> RESP
+<span class="token punctuation">}</span>
+
+</code></pre>
+<hr>
+<h1 id="codec">codec</h1>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">val</span> EOF<span class="token operator">:</span> Codec<span class="token punctuation">[</span><span class="token builtin">Unit</span><span class="token punctuation">]</span> <span class="token operator">=</span> constant<span class="token punctuation">(</span><span class="token string">"\r\n"</span><span class="token punctuation">.</span>bv<span class="token punctuation">)</span>
+
+<span class="token keyword">implicit</span> <span class="token keyword">val</span> status<span class="token operator">:</span> Codec<span class="token punctuation">[</span>RESP<span class="token punctuation">.</span>Status<span class="token punctuation">]</span> <span class="token operator">=</span> variableSizeDelimited<span class="token punctuation">(</span>EOF<span class="token punctuation">,</span> ascii<span class="token punctuation">,</span> <span class="token number">8L</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span>xmap<span class="token punctuation">[</span>RESP<span class="token punctuation">.</span>Status<span class="token punctuation">]</span><span class="token punctuation">(</span>RESP<span class="token punctuation">.</span>status<span class="token punctuation">,</span> _<span class="token punctuation">.</span>message<span class="token punctuation">)</span>
+
+<span class="token keyword">implicit</span> <span class="token keyword">val</span> error<span class="token operator">:</span> Codec<span class="token punctuation">[</span>RESP<span class="token punctuation">.</span>Error<span class="token punctuation">]</span> <span class="token operator">=</span> variableSizeDelimited<span class="token punctuation">(</span>EOF<span class="token punctuation">,</span> ascii<span class="token punctuation">,</span> <span class="token number">8L</span><span class="token punctuation">)</span>  
+  <span class="token punctuation">.</span>xmap<span class="token punctuation">[</span>RESP<span class="token punctuation">.</span>Error<span class="token punctuation">]</span><span class="token punctuation">(</span>RESP<span class="token punctuation">.</span>Error<span class="token punctuation">,</span> _<span class="token punctuation">.</span>message<span class="token punctuation">)</span>
+</code></pre>
+<p><em>demo</em></p>
+<hr>
+<h1 id="codec-1">codec</h1>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">implicit</span> <span class="token keyword">val</span> codec<span class="token operator">:</span> Codec<span class="token punctuation">[</span>RESP<span class="token punctuation">]</span> <span class="token operator">=</span> discriminated<span class="token punctuation">[</span>RESP<span class="token punctuation">]</span>  
+  <span class="token punctuation">.</span>by<span class="token punctuation">(</span>byte<span class="token punctuation">)</span>  
+  <span class="token punctuation">.</span>typecase<span class="token punctuation">(</span><span class="token string">'+'</span><span class="token punctuation">,</span> status<span class="token punctuation">)</span>  
+  <span class="token punctuation">.</span>typecase<span class="token punctuation">(</span><span class="token string">'-'</span><span class="token punctuation">,</span> error<span class="token punctuation">)</span>  
+  <span class="token punctuation">.</span>typecase<span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">,</span> integer<span class="token punctuation">)</span>  
+  <span class="token punctuation">.</span>typecase<span class="token punctuation">(</span><span class="token string">'$'</span><span class="token punctuation">,</span> bulk<span class="token punctuation">)</span>  
+  <span class="token punctuation">.</span>typecase<span class="token punctuation">(</span><span class="token string">'*'</span><span class="token punctuation">,</span> arr<span class="token punctuation">)</span>
+</code></pre>
+<hr>
+<h1 id="server-communication">server communication</h1>
+<ul>
+<li>a request consists an array of bulk strings</li>
+<li>response could be any RESP data type</li>
+</ul>
+<hr>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">trait</span> RESPClient<span class="token punctuation">[</span>F<span class="token punctuation">[</span>_<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>  
+  <span class="token keyword">def</span> execute0<span class="token punctuation">(</span>req<span class="token operator">:</span> RESP<span class="token punctuation">)</span><span class="token operator">:</span> F<span class="token punctuation">[</span><span class="token builtin">Unit</span><span class="token punctuation">]</span>  
+  <span class="token keyword">def</span> execute<span class="token punctuation">(</span>req<span class="token operator">:</span> RESP<span class="token punctuation">)</span><span class="token operator">:</span> F<span class="token punctuation">[</span>RESP<span class="token punctuation">]</span>  
+  <span class="token keyword">def</span> executes<span class="token punctuation">(</span>reqs<span class="token operator">:</span> Vector<span class="token punctuation">[</span>RESP<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> F<span class="token punctuation">[</span>Vector<span class="token punctuation">[</span>RESP<span class="token punctuation">]</span><span class="token punctuation">]</span>  
+  <span class="token keyword">def</span> stream<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Stream<span class="token punctuation">[</span>F<span class="token punctuation">,</span> RESP<span class="token punctuation">]</span>  
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">trait</span> RedisClient<span class="token punctuation">[</span>F<span class="token punctuation">[</span>_<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>  
+  <span class="token keyword">def</span> request<span class="token punctuation">[</span>R<span class="token punctuation">]</span><span class="token punctuation">(</span>r<span class="token operator">:</span> R<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">implicit</span> cmd<span class="token operator">:</span> CommandSerDes<span class="token punctuation">[</span>R<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> F<span class="token punctuation">[</span>cmd<span class="token punctuation">.</span>P<span class="token punctuation">]</span>  
+<span class="token punctuation">}</span>  
+  
+<span class="token keyword">trait</span> StreamClient<span class="token punctuation">[</span>F<span class="token punctuation">[</span>_<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>  
+  <span class="token keyword">def</span> send<span class="token punctuation">[</span>R<span class="token punctuation">]</span><span class="token punctuation">(</span>r<span class="token operator">:</span> R<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">implicit</span> cmd<span class="token operator">:</span> CommandSerDes<span class="token punctuation">[</span>R<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> F<span class="token punctuation">[</span><span class="token builtin">Unit</span><span class="token punctuation">]</span>  
+  <span class="token keyword">def</span> stream<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Stream<span class="token punctuation">[</span>F<span class="token punctuation">,</span> StreamMessage<span class="token punctuation">]</span>  
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">trait</span> CommandSerDes<span class="token punctuation">[</span>R<span class="token punctuation">]</span> <span class="token punctuation">{</span>  
+  <span class="token keyword">type</span> P  
+  <span class="token keyword">def</span> serialize<span class="token punctuation">(</span>r<span class="token operator">:</span> R<span class="token punctuation">)</span><span class="token operator">:</span> NonEmptyChain<span class="token punctuation">[</span>ByteVector<span class="token punctuation">]</span>  
+  <span class="token keyword">def</span> deserialize<span class="token punctuation">(</span>r<span class="token operator">:</span> RESP<span class="token punctuation">)</span><span class="token operator">:</span> Either<span class="token punctuation">[</span>DecodeError<span class="token punctuation">,</span> P<span class="token punctuation">]</span>  
+  <span class="token keyword">def</span> write<span class="token punctuation">(</span>r<span class="token operator">:</span> R<span class="token punctuation">)</span><span class="token operator">:</span> RESP <span class="token operator">=</span> RESP<span class="token punctuation">.</span>arr<span class="token punctuation">(</span>serialize<span class="token punctuation">(</span>r<span class="token punctuation">)</span><span class="token punctuation">.</span>toChain<span class="token punctuation">.</span>toVector<span class="token punctuation">.</span>map<span class="token punctuation">(</span>RESP<span class="token punctuation">.</span>buf<span class="token punctuation">)</span><span class="token punctuation">)</span>  
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">case</span> <span class="token keyword">class</span> Ping<span class="token punctuation">(</span><span class="token punctuation">)</span>  
+<span class="token keyword">case</span> <span class="token keyword">class</span> Pong<span class="token punctuation">(</span>msg<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span>  
+<span class="token keyword">object</span> Ping <span class="token punctuation">{</span>  
+<span class="token keyword">implicit</span> <span class="token keyword">val</span> command<span class="token operator">:</span> CommandSerDes<span class="token punctuation">[</span>Ping<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> CommandSerDes<span class="token punctuation">[</span>Ping<span class="token punctuation">]</span> <span class="token punctuation">{</span>  
+  <span class="token keyword">override</span> <span class="token keyword">type</span> P <span class="token operator">=</span> Pong  
+  
+  <span class="token keyword">override</span> <span class="token keyword">def</span> serialize<span class="token punctuation">(</span>r<span class="token operator">:</span> Ping<span class="token punctuation">)</span><span class="token operator">:</span> NonEmptyChain<span class="token punctuation">[</span>ByteVector<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">?</span><span class="token operator">?</span><span class="token operator">?</span>  
+  
+  <span class="token keyword">override</span> <span class="token keyword">def</span> deserialize<span class="token punctuation">(</span>r<span class="token operator">:</span> RESP<span class="token punctuation">)</span><span class="token operator">:</span> Either<span class="token punctuation">[</span>DecodeError<span class="token punctuation">,</span> Pong<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">?</span><span class="token operator">?</span><span class="token operator">?</span>  
+<span class="token punctuation">}</span>
+
+</code></pre>
+<hr>
+<h1 id="connections">connections</h1>
+<ul>
+<li>pooling</li>
+<li>pipelining</li>
+</ul>
+<hr>
+<h1 id="pooling">pooling</h1>
+<p>ChristopherDavenport/keypool</p>
+<pre class=" language-scala"><code class="prism  language-scala"><span class="token keyword">trait</span> KeyPool<span class="token punctuation">[</span>F<span class="token punctuation">[</span>_<span class="token punctuation">]</span><span class="token punctuation">,</span> Key<span class="token punctuation">,</span> Rezource<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> take<span class="token punctuation">(</span>k<span class="token operator">:</span> Key<span class="token punctuation">)</span><span class="token operator">:</span> Resource<span class="token punctuation">[</span>F<span class="token punctuation">,</span> Managed<span class="token punctuation">[</span>F<span class="token punctuation">,</span> Rezource<span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<h1 id="pipelining">pipelining</h1>
+<p><em>demo</em></p>
+<hr>
+<h1 id="similar">similar</h1>
+<ul>
+<li>tpolecat/skunk</li>
+<li>http4s/ember-{core,client,server}</li>
+<li>Spinoco/fs2-*</li>
+</ul>
+</div>
+</body>
+
+</html>
