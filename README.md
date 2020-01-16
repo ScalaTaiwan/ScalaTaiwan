@@ -1,5 +1,8 @@
 # Scala Taiwan Meetups
 
+## 2020
+* [Scala Through Lenses](2020/2020-01-14-Scala_through_lenses/) by [Jiří Jakeš](https://github.com/jirijakes)
+
 ## 2019
 * [FrameworkChoice finagle vs akka](2019/2019-12-17-framework_choice_finagle_vs_akka) by [Chenghsien Wen](https://github.com/chenghsienwen)
 * [How to contribute to (Scala) open source & my experience](2019/2019-11-05-How_to_contribute_to_(Scala)_open_source_&_my_experience) by [Jimin Hsieh](https://github.com/jiminhsieh)
