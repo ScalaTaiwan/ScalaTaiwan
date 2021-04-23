@@ -3,6 +3,7 @@
 ## 2021
 
 * \#38: [Scala fun part: Reflection](https://www.slideshare.net/vitojeng/scala-fun-part-reflectionruntime) by [Vito Jeng](https://github.com/vitojeng)
+* [ZIO: Rising star in asynchronous and concurrent programming](2021/2021-04-17-zio/) by [Jiří Jakeš](https://github.com/jirijakes)
 
 ## 2020
 * [Scala Through Lenses](2020/2020-01-14-Scala_through_lenses/) by [Jiří Jakeš](https://github.com/jirijakes)
