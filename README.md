@@ -1,5 +1,9 @@
 # [Scala Taiwan Meetups](https://www.meetup.com/Scala-Taiwan-Meetup/)
 
+## 2023
+
+* [ZIO Ecosystem](2023/2023-02-21-zio_ecosystem/) by [Jiří Jakeš](https://github.com/jirijakes)
+
 ## 2021
 
 * \#38: [Scala fun part: Reflection](https://www.slideshare.net/vitojeng/scala-fun-part-reflectionruntime) by [Vito Jeng](https://github.com/vitojeng)
