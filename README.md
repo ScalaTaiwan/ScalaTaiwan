@@ -2,6 +2,7 @@
 
 ## 2023
 
+* [Talgess Final in Scala](2023/2023-03-23-Tagless_Final_in_Scala) by [Sean Sun](https://github.com/TseEnSun)
 * [ZIO Ecosystem](2023/2023-02-21-zio_ecosystem/) by [Jiří Jakeš](https://github.com/jirijakes)
 
 ## 2021
